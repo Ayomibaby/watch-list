@@ -27,8 +27,6 @@ app.get("/", function(req, res){
         res.render('todo', {movie: docs});
     })
   
-   
-
  
 });
 
@@ -41,9 +39,16 @@ app.post("/", function(req, res){
 
     movie1.save();
     res.redirect("/");
-})
+});
 
+app.post("/delete", function(req, res){
+    const checked = req.body.checkbox;
 
+    film.findByIdAndRemove(checked, function(err){
+        console.log(err);
+    });
+    res.redirect("/");
+});
 
 
 

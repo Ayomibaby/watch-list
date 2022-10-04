@@ -7,12 +7,16 @@
 
     
      <div class="box">
+        <form  action="/delete" method="post">
     <% movie.forEach(function(movie){%>
         <div class="item">
-            <input type="checkbox">
-            <p> <%= movie%></p>
+            <input type="checkbox" name="checkbox" value="<%= movie._id %>" onclick="this.form.submit()">
+            <p> <%= movie.name%></p>
         </div>
         <% }) %>
+    </form>
+
+
         <form class="item" action="/" method="post"> 
             <input name="newItem" placeholder="enter movie" type="text">
             <button name="" value="" type="submit">+</button>

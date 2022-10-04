@@ -7,10 +7,12 @@
 
     
      <div class="box">
+    <% for(i=0; i<movie.length; i++){%>
         <div class="item">
             <input type="checkbox">
-            <p> <%= movie %></p>
+            <p> <%= movie[i] %></p>
         </div>
+        <% } %>
         <form class="item" action="/" method="post"> 
             <input name="newItem" placeholder="enter movie" type="text">
             <button name="" value="" type="submit">+</button>

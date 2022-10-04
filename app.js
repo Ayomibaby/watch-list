@@ -10,10 +10,22 @@ app.set('view engine', 'ejs');
 
 app.use(express.static('public'));
 
+let toWatch = [];
+
 app.get("/", function(req, res){
-    res.render('todo');
+    res.render('todo', {movie: toWatch});
+   
+
+ 
 });
 
+app.post("/", function(req, res){
+    const newMovie = req.body.newItem;
+
+    toWatch.push(newMovie);
+
+    res.redirect("/")
+})
 
 
 

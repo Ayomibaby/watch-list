@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
+const mongoose = require('mongoose');
 
 const app = express();
 
@@ -10,10 +11,22 @@ app.set('view engine', 'ejs');
 
 app.use(express.static('public'));
 
+mongoose.connect('mongodb://localhost:27017/toWatchDB');
+
+let towatchSchema = {
+    name: String
+}; 
+
+const film = mongoose.model('film', towatchSchema)
+
 let toWatch = [];
 
 app.get("/", function(req, res){
-    res.render('todo', {movie: toWatch});
+
+    film.find({}, function(err, docs){
+        res.render('todo', {movie: docs});
+    })
+  
    
 
  
@@ -22,9 +35,12 @@ app.get("/", function(req, res){
 app.post("/", function(req, res){
     const newMovie = req.body.newItem;
 
-    toWatch.push(newMovie);
+    const movie1 = new  film ({
+        name: newMovie
+    });
 
-    res.redirect("/")
+    movie1.save();
+    res.redirect("/");
 })
 
 
